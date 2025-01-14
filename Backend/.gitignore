@@ -1,0 +1,15 @@
+# Logs
+*.log
+
+# Node Modules
+node_modules
+
+# Environment variables
+.env
+
+# Editor directories and files 
+.vscode/ 
+idea/ 
+
+# Cache 
+.cache
