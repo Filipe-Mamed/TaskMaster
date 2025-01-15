@@ -7,6 +7,7 @@ TaskMaster é uma aplicação web que permite criar e organizar tarefas por meio
 - [Instalação](#instalação)
 - [Licença](#licença)
 - [Tecnologias Usadas](#tecnologias-usadas)
+- [Introdução](#introdução)
 
 ## Tecnologias Usadas
 
@@ -73,10 +74,10 @@ npm start
 
 ## Introdução
 
-<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Inicial.png?raw=true" alt=""/>
-<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Tarefas.png?raw=true" alt=""/>
-<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Detalhes.png?raw=true" alt=""/>
-<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Dashboard.png?raw=true" alt=""/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Inicial.png?raw=true" alt="Página Inicial"/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Tarefas.png?raw=true" alt="Tarefas"/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Detalhes.png?raw=true" alt="Detalhes"/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Dashboard.png?raw=true" alt="Dashboard"/>
 
 ## Licença
 
