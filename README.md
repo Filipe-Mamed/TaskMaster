@@ -71,6 +71,13 @@ cd ../Frontend
 npm start
 <hr/>
 
+## Introdução
+
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Inicial.png?raw=true" alt=""/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Tarefas.png?raw=true" alt=""/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Detalhes.png?raw=true" alt=""/>
+<img src="https://github.com/Filipe-Mamed/TaskMaster/blob/main/Assents/Dashboard.png?raw=true" alt=""/>
+
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
