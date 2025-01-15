@@ -44,33 +44,36 @@ TaskMaster é uma aplicação web que permite criar e organizar tarefas por meio
    ```bash
    git clone https://github.com/Filipe-Mamed/TaskMaster.git
 2. Navegue até o diretório do projeto: 
-``
-cd TaskMaster
-``
+    ```bash
+     cd TaskMaster
+    ```
 
-Instale as dependências do backend:
+3. Instale as dependências do backend:
+   ```bash
+   cd Backend
+   npm install
+   ```
 
-cd Backend
-npm install
-<hr/>
 
-Instale as dependências do frontend:
+4. Instale as dependências do frontend:
+    ```bash
+    cd ../Frontend
+    npm install
+    ```
 
-cd ../Frontend
-npm install
-<hr/>
+5. Inicie o servidor do backend:
+    ```bash
+    cd Backend
+    npm start
+    ```
 
-Inicie o servidor do backend:
 
-cd Backend
-npm start
-<hr/>
+6. Inicie o servidor do frontend:
+    ```bash
+    cd ../Frontend
+    npm start
+    ```
 
-Inicie o servidor do frontend:
-
-cd ../Frontend
-npm start
-<hr/>
 
 ## Introdução
 
