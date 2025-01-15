@@ -43,8 +43,8 @@ TaskMaster é uma aplicação web que permite criar e organizar tarefas por meio
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Filipe-Mamed/TaskMaster.git
-Navegue até o diretório do projeto: 
-
+2. Navegue até o diretório do projeto: 
+  ```bash
 cd TaskMaster
 <hr/>
 
