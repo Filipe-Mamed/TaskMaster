@@ -98,7 +98,7 @@ function TaskMaster() {
       </ImgWrapper>
       <SubHeading>Comece a criar suas tarefas agora mesmo!</SubHeading>
       <ButtonContainer>
-        <LinkBotao text="Criar tarefa" to="/novatarefa" />
+        <LinkBotao text="Começar" to="/login" />
       </ButtonContainer>
     </Background>
   );

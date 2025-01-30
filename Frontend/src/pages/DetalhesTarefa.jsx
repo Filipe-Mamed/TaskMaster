@@ -36,23 +36,61 @@ const CardTitle = styled.h2`
   margin-bottom: 1.5rem;
   color: #343a40;
   text-align: center;
+  white-space: nowrap;      
+  overflow: hidden;        
+  text-overflow: ellipsis;  
+  width: 100%;              
+  max-width: 100%; 
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const CardText = styled.p`
   font-size: 1.2rem;
   margin: 1rem 0;
   color: #6c757d;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+`;
+
+const CardDescription = styled.p`
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: #6c757d;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const ButtonGroupB = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const CardBody = styled.div`
@@ -125,7 +163,11 @@ function DetalhesTarefas() {
         });
       })
       .catch((err) => {
-        toast.error("Erro ao carregar a tarefa!", err);
+        if (err.response && err.response.status === 401) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error("Erro ao carregar a tarefa!", err);
+        }
       });
   }, [id]);
 
@@ -137,7 +179,11 @@ function DetalhesTarefas() {
         navigate("/minhastarefas");
       })
       .catch((err) => {
-        toast.error("Erro ao excluir a tarefa!", err);
+        if (err.response && err.response.status === 401) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error("Erro ao excluir a tarefa!", err);
+        }
       });
   };
 
@@ -189,7 +235,7 @@ function DetalhesTarefas() {
       .put(`/tarefas/${id}`, dadosAtualizados)
       .then(() => {
         toast.success("Tarefa alterada com sucesso!");
-        return api.get(`/tarefas/${id}`)
+        return api.get(`/tarefas/${id}`);
       })
       .then((res) => {
         setTarefa(res.data);
@@ -328,7 +374,7 @@ function DetalhesTarefas() {
           <CardTitle>{tarefa.titulo}</CardTitle>
           <CardSeparator />
           <CardText className="text-center">Descrição:</CardText>
-          <CardText className="text-center">{tarefa.descricao}</CardText>
+          <CardDescription className="text-center">{tarefa.descricao}</CardDescription>
           <CardSeparator />
           <div className="d-flex justify-content-between">
             <CardText>

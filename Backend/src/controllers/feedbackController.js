@@ -13,6 +13,7 @@ exports.cadastrarFeedback = (req, res) => {
 
   const newFeedback = new Feedback({
     mensagem,
+    usuario: req.user._id,
   });
 
   newFeedback

@@ -6,6 +6,9 @@ import EstiloFavicon from "../components/Estilo_Navbar/EstiloFavicon";
 import EstiloFeedback from "../components/Estilo_Navbar/EstiloFeedback";
 import EstiloDashboard from "../components/Estilo_Navbar/EstiloDashboard";
 import Icon from "../components/Estilo_Navbar/Icon";
+import LogoutButton from "../components/Estilo_LogoutButton/LogoutButton"
+import { useContext } from "react";
+import { AuthContext } from "../components/Autentificação_Global/AuthContext";
 
 // Estiliza o contêiner da barra de navegação
 const NavbarContainer = styled.nav`
@@ -13,6 +16,7 @@ const NavbarContainer = styled.nav`
 `;
 
 const Navbar = () => {
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <NavbarContainer className="navbar navbar-expand-lg bg-dark text-white"> {/* Contêiner da barra de navegação */}
       <div className="container-fluid">
@@ -36,11 +40,14 @@ const Navbar = () => {
             <li className="nav-item">
               <EstiloTarefas />
             </li>
-            <li>
+            <li className="nav-item">
               <EstiloDashboard />
             </li>
-            <li>
+            <li className="nav-item">
               <EstiloFeedback />
+            </li>
+            <li className="nav-item">
+            {isAuthenticated && <LogoutButton />}
             </li>
           </ul>
         </div>

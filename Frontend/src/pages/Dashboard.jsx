@@ -34,6 +34,8 @@ const ChartWrapper = styled.div`
   width: 100%;
   height: 300px;
   min-width: 280px;
+
+  
 `;
 // Estiliza a lista de tarefas
 const List = styled.ul`
@@ -47,6 +49,11 @@ const ListItem = styled.li`
   margin: 0.5rem 0;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;      
+  overflow: hidden;        
+  text-overflow: ellipsis;  
+  width: 100%;              
+  max-width: 100%;
 `;
 
 function Dashboard() {
@@ -61,7 +68,12 @@ function Dashboard() {
         setDados(res.data); // Atualiza o estado 'dados' com os dados recebidos
       })
       .catch((err) => {
-        toast.error("Erro ao carregar dados do dashboard.", err); // Exibe uma notificação de erro
+        if (err.response && err.response.data) {
+          toast.error(err.response.data.message); // Exibe uma notificação de erro com a mensagem do backend
+        }
+        else {
+          toast.error("Erro ao carregar os dados, tente novamente."); // Exibe uma notificação de erro
+        } // Exibe uma notificação de erro
       });
   }, []);
 

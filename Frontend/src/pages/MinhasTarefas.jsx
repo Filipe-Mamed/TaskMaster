@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import LinkBotao from "../components/Estilo_Botao/LinkBotao";
 import ProgressBar from "../layouts/ProgressBar";
 import CancelarButton from "../components/form/CancelarButton";
+import LinkBotao2 from "../components/Estilo_Botao/LinkBotao2";
 import EstiloStatus from "../components/Estilo_Status/EstiloStatus";
 import BarraDePesquisa from "../components/Estilo_BarraPesquisa/BarraDePesquisa";
 import moment from "moment-timezone";
@@ -19,6 +19,14 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 2rem;
   background-color: #f0f2f5;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.5rem;
+  }
 `;
 // Estiliza o cabeçalho
 const Header = styled.div`
@@ -42,6 +50,11 @@ const Title = styled.h1`
 
   @media (max-width: 600px) {
     margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
   }
 `;
 // Estiliza o contêiner do cartão de tarefa
@@ -62,6 +75,16 @@ const CardContainer = styled.div`
     background-color: #f8f9fa;
     transform: translateY(-5px);
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    margin: 0.75rem 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+  }
 `;
 // Estiliza o link do cartão de tarefa
 const CardLink = styled(Link)`
@@ -79,12 +102,25 @@ const CardTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: bold;
   color: #212529;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 100%;
+
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+  }
 `;
 // Estiliza o texto do cartão de tarefa
 const CardText = styled.p`
   font-size: 1.1rem;
   margin: 0.5rem 0;
   color: #6c757d;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 function MinhasTarefas() {
@@ -106,8 +142,11 @@ function MinhasTarefas() {
         setLoading(false); // Define 'loading' como false
       })
       .catch((err) => {
-        toast.error("Erro ao carregar as tarefas", err);  // Exibe uma notificação de erro
-        setLoading(false); // Define 'loading' como false
+        if (err.response && err.response.status === 500) {
+          toast.error(err.reponse.data.message); // Exibe uma notificação de erro
+        } else {
+          setLoading(false);
+        } // Define 'loading' como false
       });
   }, []);
 
@@ -117,11 +156,15 @@ function MinhasTarefas() {
       .delete(`/tarefas/${id}`) // Faz uma requisição DELETE à API para excluir a tarefa
       .then(() => {
         const novasTarefas = tarefas.filter((tarefa) => tarefa._id !== id); // Filtra a tarefa excluída
-        setTarefas(novasTarefas);  // Atualiza o estado 'tarefas'
+        setTarefas(novasTarefas); // Atualiza o estado 'tarefas'
         toast.success("Tarefa excluída com sucesso!"); // Exibe uma notificação de sucesso
       })
       .catch((err) => {
-        toast.error("Erro ao excluir a tarefa", err); // Exibe uma notificação de erro
+        if (err.response && err.response.status === 401) {
+          toast.error(err.response.data.message);
+        } else {
+          toast.error("Erro ao excluir a tarefa", err);
+        } // Exibe uma notificação de erro
       });
   }
   // Filtra as tarefas com base na pesquisa
@@ -137,7 +180,7 @@ function MinhasTarefas() {
     <Container>
       <Header>
         <Title>Minhas Tarefas</Title>{" "}
-        <LinkBotao text="Nova tarefa" to="/novatarefa" />
+          <LinkBotao2 text="Nova tarefa" to="/novatarefa" />
       </Header>
       <BarraDePesquisa
         pesquisaConsulta={pesquisaConsulta}

@@ -4,13 +4,16 @@ const moment = require("moment-timezone");
 
 // Obter todas as tarefas
 exports.obterTarefas = function (req, res) {
-  Tarefa.find()
+  if (!req.user) {
+    return res.status(401).json({ message: "Usuário não autenticado!" });
+  }
+  Tarefa.find({ usuario: req.user._id})
     .populate("categoria", "nome")
     .then(function (tarefas) {
       res.status(200).json(tarefas);
     })
     .catch(function (erro) {
-      res.status(500).json({ erro: erro.message });
+      res.status(500).json({ message: "Erro ao carregar tarefas!" });
     });
 };
 
@@ -58,6 +61,7 @@ exports.criarTarefa = function (req, res) {
       categoria,
       status: status || "Pendente",
       dataConclusao: dataConclusaoUtc,
+      usuario: req.user._id,
     });
 
     newTask
