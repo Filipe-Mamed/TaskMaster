@@ -25,6 +25,14 @@ const Form = styled.form`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 0.8rem;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
 // Estiliza o grupo de formulário
 const FormGroup = styled.div`
@@ -35,6 +43,10 @@ const CharacterLimitMessage = styled.span`
   font-size: 0.9rem;
   color: #888;
   margin-top: 0.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+  }
 `;
 
 function CriarFeedback() {
@@ -62,7 +74,12 @@ function CriarFeedback() {
           err.response.data.erros.forEach((erro) => {
             toast.error(erro.message); // Exibe uma notificação de erro para cada erro retornado (erro.message vem do Back-End)
           });
-        } else {
+        } 
+        else if(err.response && err.response.status === 401){
+          toast.error(err.response.data.message)
+        }
+        
+        else {
           toast.error("Erro ao enviar feedback, tente novamente.", err); // Exibe uma notificação de erro genérica
         }
       });

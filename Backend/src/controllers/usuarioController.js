@@ -1,6 +1,6 @@
 const Usuario = require("../models/usuario");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
+const passport = require("../config/passportConfig");
 
 // Registrar um novo usuário
 exports.registrar = function (req, res) {
@@ -62,41 +62,49 @@ exports.registrar = function (req, res) {
             // Salvar o novo usuário no banco de dados
             return novoUsuario.save();
           })
-          .then(function () {
-            // Sucesso
-            res
-              .status(201)
-              .json({ message: "Usuário cadastrado com sucesso!" });
+          .then(function (usuario) {
+            // Ao registrar com sucesso, faz o login do usuário
+            req.login(usuario, function (err) {
+              if (err) {
+                return res.status(500).json({ message: "Erro ao fazer login após o registro", err });
+              }
+              // Agora o usuário está autenticado
+              return res.status(201).json({ message: "Usuário registrado e autenticado com sucesso!", usuario });
+            });
           })
           .catch(function (err) {
-            // Em caso de erro
-            res.status(500).json({
-              message: "Erro ao cadastrar usuário.",
-              err,
-            });
+            res.status(500).json({ message: "Erro ao registrar usuário", err });
           });
       })
       .catch(function (err) {
-        // Erro ao verificar o usuário
-        res.status(500).json({
-          message: "Erro ao verificar usuário.",
-          err,
-        });
+        res.status(500).json({ message: "Erro ao verificar e registrar o usuário", err });
       });
   }
 };
 
 // Login
-exports.login = function(req, res, next){
-    passport.authenticate('local', {
-        successRedirect: '/tarefas', // Redireciona para a página de tarefas em caso de sucesso
-        failureRedirect: '/login', // Redireciona para a página de login em caso de falha
-        passReqToCallback: true
-    })(req, res, next);
-}
+exports.login = function (req, res, next) {
+  passport.authenticate("local", function (err, user, info) {
+    if (err || !user) {
+      // Se houver erro ou não houver usuário, retorna um erro no frontend
+      return res.status(401).json({ message: info.message });
+    }
+    // Se o login for bem-sucedido, retorna uma mensagem de sucesso e os dados do usuário
+    req.login(user, function (err) {
+      if (err) {
+        return res.status(500).json({ message: "Erro ao fazer login!" });
+      }
+      return res.status(200).json({ message: "Login realizado com sucesso!", redirectTo: "/minhastarefas" });
+    });
+  })(req, res, next);
+};
 
 // Sair
-exports.sair = function(req, res){
-    req.logout();
-    res.status(201).json({redirectTo: '/login'}) // Redireciona para a página de login após sair
-}
+exports.sair = function (req, res) {
+  req.logout(function(err){
+    if(err){
+      return res.status(500).json({ message: "Erro ao deslogar, tente novamente!", err })
+    }
+    res.status(200).json({ message: "Deslogado com sucesso!", redirectTo: "/login" }) // Redireciona para a página de login após sair
+  })
+};

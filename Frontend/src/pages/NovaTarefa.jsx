@@ -17,6 +17,14 @@ const Container = styled.div`
   min-height: 100vh;
   background-color: #f8f9fa;
   padding: 4rem 1rem;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1rem 0.5rem;
+  }
 `;
 // Estiliza o cartão de formulário
 const Card = styled.div`
@@ -26,10 +34,22 @@ const Card = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+  }
 `;
 // Estiliza o corpo do cartão de formulário
 const CardBody = styled.div`
   padding: 2rem;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
 // Estiliza o título do cartão de formulário
 const CardTitle = styled.h2`
@@ -37,6 +57,11 @@ const CardTitle = styled.h2`
   font-weight: bold;
   text-align: center;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
 `;
 // Estiliza o formulário
 const Form = styled.form`
@@ -46,14 +71,22 @@ const Form = styled.form`
 // Estiliza o grupo de formulário
 const FormGroup = styled.div`
   margin-bottom: 1.5rem;
+
+  @media (max-width: 480px) {
+    margin-bottom: 1rem;
+  }
 `;
 // Estiliza o grupo de botões
 const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 0.5rem;
-`;
 
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+`;
 
 function NovaTarefa() {
   // Define o estado inicial da tarefa
@@ -66,7 +99,7 @@ function NovaTarefa() {
   });
   // Define o estado inicial das categorias
   const [categorias, setCategorias] = useState([]);
-   // Hook para navegação programática
+  // Hook para navegação programática
   const navigate = useNavigate();
 
   // Busca categorias da API quando o componente é montado
@@ -100,7 +133,6 @@ function NovaTarefa() {
   const criarTarefa = function (e) {
     e.preventDefault();
 
-
     const tarefaData = {
       titulo: tarefa.titulo,
       descricao: tarefa.descricao,
@@ -120,6 +152,8 @@ function NovaTarefa() {
           err.response.data.erros.forEach((erro) => {
             toast.error(erro.message);
           });
+        } else if (err.response && err.response.status === 401) {
+          toast.error(err.response.data.message);
         } else {
           toast.error("Erro ao criar tarefa!");
         }

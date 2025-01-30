@@ -31,6 +31,11 @@ const tarefasSchema = new Schema(
     dataConclusao: {
       type: Date,
     },
+    usuario: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
+      required: true,
+    },
   },
   { timestamps: true }
 );

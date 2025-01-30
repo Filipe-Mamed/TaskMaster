@@ -10,7 +10,7 @@ function ContainerShowMessage() {
         closeOnClick = {true} // Permite fechar o toast ao clicar
         autoClose = "6000" // Tempo de fechamento automático do toast em milissegundos (6000ms = 6s)
         draggable // Permite arrastar o toast na tela
-        newestOnTop // Exibe os toasts mais novos no topo
+        newestOnTop = {false} // Exibe os toasts mais novos em baixo
         rtl={false} // Desativa a orientação da direita para a esquerda
         pauseOnFocusLoss // Pausa o timer do toast se a janela perder o foco
         pauseOnHover={false} // Desativa a pausa do timer quando o mouse passa sobre o toast
